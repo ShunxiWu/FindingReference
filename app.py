@@ -6,6 +6,7 @@ import os
 from dotenv import load_dotenv
 import pandas as pd
 from datetime import datetime
+import re
 
 # Load environment variables
 load_dotenv()
@@ -19,10 +20,13 @@ if 'analysis_results' not in st.session_state:
 if 'thesis_topic' not in st.session_state:
     st.session_state.thesis_topic = ""
 
+
 def split_into_paragraphs(text: str) -> List[str]:
-    """将文本分割成段落"""
-    paragraphs = [p.strip() for p in text.split('\n') if p.strip()]
-    return paragraphs
+    """将文本以英文句号后紧跟换行符分割成段落"""
+    paragraphs = re.split(r'(?<=\.)\n', text)
+    return [p.strip() for p in paragraphs if p.strip()]
+
+
 
 def parse_gpt_response(response_text: str) -> List[Dict]:
     """解析GPT响应"""
