@@ -21,7 +21,7 @@ if 'thesis_topic' not in st.session_state:
 
 def split_into_paragraphs(text: str) -> List[str]:
     """将文本分割成段落"""
-    paragraphs = [p.strip() for p in text.split('\n\n') if p.strip()]
+    paragraphs = [p.strip() for p in text.split('\n') if p.strip()]
     return paragraphs
 
 def parse_gpt_response(response_text: str) -> List[Dict]:
